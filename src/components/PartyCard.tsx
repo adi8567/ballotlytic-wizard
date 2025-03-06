@@ -37,18 +37,21 @@ const PartyCard = ({
   // Create a contrasting border color for the selected state
   const borderColor = selected ? color : 'transparent';
   
+  // Create a custom ring CSS variable for the selected state
+  const customRingStyle = selected ? {
+    '--ring-color': color,
+    borderColor
+  } : { borderColor };
+  
   return (
     <Card 
       className={cn(
         'overflow-hidden transition-all duration-300',
-        selected ? 'ring-2 ring-offset-2' : 'hover:shadow-md',
+        selected ? 'ring-2 ring-offset-2 ring-[var(--ring-color)]' : 'hover:shadow-md',
         disabled && 'opacity-60 cursor-not-allowed',
         isHovered && !disabled && !selected && 'transform scale-[1.02]'
       )}
-      style={{ 
-        borderColor,
-        ringColor: selected ? color : undefined,
-      }}
+      style={customRingStyle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
